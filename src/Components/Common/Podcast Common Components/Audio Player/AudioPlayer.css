@@ -1,0 +1,54 @@
+.custom-audio-player{
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 1rem 0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:2rem;
+    background-color: rgba(14,2,21,.5);
+    /* margin-top: 20px; */
+}
+
+.display-image-player{
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+}
+
+.duration-range{
+    filter:hue-rotate(25deg);
+    width: 100%;
+}
+
+.duration-flex{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap:0.5rem;
+    width:50%;
+}
+
+.volume-range{
+    filter: hue-rotate(25deg);
+    width: 30%;
+}
+
+.audio-btn{
+    cursor: pointer;
+}
+
+.cancel-btn{
+    font-size: 1.5rem;
+    position: absolute;
+    top:10px;
+    right: 80px;
+    color: var(--purple-grey);
+    transition: all .3s ease-in-out;
+}
+
+.cancel-btn:hover{
+    color: var(--white);
+}
