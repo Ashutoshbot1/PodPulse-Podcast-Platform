@@ -10,6 +10,7 @@ import { auth, db, storage } from "../firebase";
 import { addDoc, collection } from "firebase/firestore";
 import FileInput from "../Components/Common/Inputs/Custom File Input/FileInput";
 import Input from "../Components/Common/Inputs/Custom Input/Input";
+import Loader from "../Components/Common/Loader/Loader";
 
 const CreateEpisodePage = () => {
   const { id } = useParams();
@@ -63,6 +64,10 @@ const CreateEpisodePage = () => {
       setLoading(false);
       toast.error("All Files Should Be There");
     }
+  }
+
+  if(loading){
+    return <Loader/>
   }
   return (
     <div>

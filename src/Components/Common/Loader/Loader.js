@@ -1,10 +1,10 @@
 import React from 'react';
 import './Loader.css'
 
-const Loader = () => {
+const Loader = ({style}) => {
   return (
-    <div className='wrapper'>
-      <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <div className='wrapper' style={style}>
+      <div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     </div>
   )
 }

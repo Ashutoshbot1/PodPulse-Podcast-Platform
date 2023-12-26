@@ -76,3 +76,11 @@
 a.active{
     color: var(--white);
 }
+
+a.act{
+    color: var(--white);
+}
+
+a.de-act{
+    color: #8ea6bb;
+}

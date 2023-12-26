@@ -6,5 +6,16 @@
     gap:1.2rem;
 } */
 
+.signup-form input,
+.signup-form label{
+    height: 12px;
+
+}
+
+.signup-form label{
+    display: flex;
+    align-items: center;
+}
+
 
 

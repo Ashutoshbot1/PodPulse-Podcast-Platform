@@ -43,6 +43,8 @@ function App() {
                   name: userData.name,
                   email: userData.email,
                   uid: user.uid,
+                  profileImage: user.profileImage,
+                  profileCoverImage: user.profileCoverImage,
                 })
               );
             }
@@ -76,8 +78,11 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/start-podcast" element={<CreatePodcastPage />} />
             <Route path="/podcasts" element={<PodcastsPage />} />
-            <Route path="/podcasts/:id" element={<PodcastDetailsPage/>}/>
-            <Route path="/podcasts/:id/create-episode" element={<CreateEpisodePage/>}/>
+            <Route path="/podcasts/:id" element={<PodcastDetailsPage />} />
+            <Route
+              path="/podcasts/:id/create-episode"
+              element={<CreateEpisodePage />}
+            />
           </Route>
         </Routes>
       </Router>

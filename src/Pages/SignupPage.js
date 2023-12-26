@@ -8,16 +8,16 @@ const SignupPage = () => {
 
   return (
     <div>
-      <Header />
+      <Header flag={flag} setFlag={setFlag}/>
 
       <div className="input-wrapper">
         {!flag ? <SignupForm /> : <LoginForm />}
         {!flag ? (
-          <p onClick={(e) => setFlag(!flag)}>
+          <p onClick={() => setFlag(!flag)}>
             Already have an Account? Click here to Login
           </p>
         ) : (
-          <p onClick={(e) => setFlag(!flag)}>
+          <p onClick={() => setFlag(!flag)}>
             Don't have an Account? click here to Signup
           </p>
         )}

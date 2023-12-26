@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { doc, getDoc } from "firebase/firestore";
 import { setUser } from "../../../slices/userSlice";
 import { toast } from "react-toastify";
+import Loader from "../../Common/Loader/Loader";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -56,6 +57,10 @@ const LoginForm = () => {
       toast.error(err.message);
       setLoading(false);
     }
+  }
+
+  if(loading){
+    return <Loader/>
   }
 
   return (

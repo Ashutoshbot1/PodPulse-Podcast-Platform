@@ -30,7 +30,7 @@ input{
   align-items: center;
   margin: 0 auto;
   margin-top: 2rem;
-
+  /* flex-wrap: wrap; */
 }
 
 .input-wrapper h1{
@@ -42,7 +42,7 @@ input{
 
 .podcasts-flex{
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap:1rem;
   flex-wrap: wrap;
@@ -102,4 +102,36 @@ a{
 
 .profile img{
   border-radius: 40%;
+  /* z-index: 3; */
+  transition: all .5s ease-in-out;
 }
+
+.profile img:hover{
+  /* z-index: 1; */
+  opacity: .8;
+}
+
+.profileEdit{
+  border:2px solid white;
+  padding: .5rem 1rem;
+  border-radius: 1rem;
+  position: absolute;
+  right:680px;
+  top:675px;
+  font-size: 10px;
+  
+}
+
+.profileCoverEdit{
+  border:2px solid white;
+  padding: .5rem 1rem;
+  border-radius: 1rem;
+  width: fit-content;
+  font-size: 10px;
+  position: absolute;
+  top:500px;
+
+}
+
+
+

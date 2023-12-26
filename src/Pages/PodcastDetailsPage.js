@@ -5,10 +5,9 @@ import { collection, doc, getDoc, onSnapshot, query } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { toast } from "react-toastify";
 import Button from "../Components/Common/Button/Button";
-// import AudioPlayer from "../Components/Common/Podcasts/AudioPlayer/AudioPlayer";
 import EpisodeDetails from "../Components/Common/Podcast Common Components/Episode Details/EpisodeDetails";
 import AudioPlayer from "../Components/Common/Podcast Common Components/Audio Player/AudioPlayer";
-// import { current } from "@reduxjs/toolkit";
+import Loader from "../Components/Common/Loader/Loader";
 
 const PodcastDetailsPage = () => {
   const { id } = useParams();
@@ -16,6 +15,7 @@ const PodcastDetailsPage = () => {
   const [podcast, setPodcast] = useState({});
   const [episode, setEpisodes] = useState([]);
   const [playingFile, setPlayingFile] = useState("");
+  const [loading, setLoading] = useState(false);
 
   console.log("ID", id);
   useEffect(() => {
@@ -26,6 +26,7 @@ const PodcastDetailsPage = () => {
 
   async function getData() {
     try {
+      setLoading(true);
       const docRef = doc(db, "podcasts", id);
       const docSnap = await getDoc(docRef);
 
@@ -38,6 +39,7 @@ const PodcastDetailsPage = () => {
         navigate("/podcasts");
       }
     } catch (err) {
+      setLoading(false);
       toast.error(err.message);
       console.log("PodcastDetailsPage Error", err);
     }
@@ -65,6 +67,9 @@ const PodcastDetailsPage = () => {
 
   console.log(podcast.createdBy === auth.currentUser.uid);
 
+  if (loading) {
+    <Loader />;
+  }
   return (
     <div>
       <Header />
@@ -80,7 +85,7 @@ const PodcastDetailsPage = () => {
               }}
             >
               <h1 className="podcast-title-heading">{podcast.title}</h1>
-              {podcast.createdBy == auth.currentUser.uid && (
+              {podcast.createdBy === auth.currentUser.uid && (
                 <Button
                   text={"Create Episode"}
                   onClick={() => {

@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import FileInput from "../../Common/Inputs/Custom File Input/FileInput";
+import Loader from "../../Common/Loader/Loader";
+import './SignupForm.css'
 
 const SignupForm = () => {
   const [fullName, setFullname] = useState("");
@@ -124,6 +126,10 @@ const SignupForm = () => {
   // Handling Profile Cover Image
   function handleProfileCoverImage(file){
     setProfileCoverImage(file);
+  }
+
+  if(loading){
+    return <Loader/>
   }
 
   return (
