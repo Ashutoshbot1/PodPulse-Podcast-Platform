@@ -27,17 +27,17 @@ const EditImage = ({
 
   useEffect(() => {
     let isMounted = true;
-    console.log("run1");
+    // console.log("run1");
     const fetchData = async () => {
       try {
         setLoading(true);
         console.log("run2");
         if (imageName === "profileImage" || imageName === "profileCoverImage") {
-          console.log("run3", imageName);
+          //   console.log("run3", imageName);
           const userDoc = await getDoc(doc(db, "users", uid));
           const userData = userDoc.data();
 
-          console.log("previous user", userData); //clg
+          //   console.log("previous user", userData); //clg
 
           const imageRef = ref(
             storage,
@@ -48,15 +48,12 @@ const EditImage = ({
 
           const newUserData = { ...userData, [imageName]: imageUrl };
 
-          console.log("new user data", newUserData); //clg
+          //   console.log("new user data", newUserData); //clg
 
           if (isMounted) {
             await setDoc(doc(db, "users", uid), newUserData);
             dispatch(setUser(newUserData));
             setUpdate(!update);
-
-            // Call the callback to inform the parent component (ProfilePage) about the image update
-            // onImageUpdate(imageUrl,imageName);
           }
           setLoading(false);
         }

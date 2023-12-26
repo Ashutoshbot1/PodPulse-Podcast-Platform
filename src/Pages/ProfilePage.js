@@ -21,18 +21,18 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const [update, setUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
-  const[editCoverImage,setEditCoverImage]=useState(false);
-  const[editProfileImage,setEditProfileImage]=useState(false);
+  const [editCoverImage, setEditCoverImage] = useState(false);
+  const [editProfileImage, setEditProfileImage] = useState(false);
 
-  // onImageUpdate Handle
-  // const handleImageUpdate = (newImageUrl,imageName) => {
-  //   const updatedUser = { ...user, [imageName]: newImageUrl };
-  //   console.log("dispatch loaded")
-  //   dispatch(setUser(updatedUser));
-  // };
+  useState(() => {
+    const intervalId = setInterval(() => {
+      setEditCoverImage(false);
+      setEditProfileImage(false);
+    }, 7000);
 
-  // Triggers when Current user change
-  // Even when Page is reloaded
+    return () => clearInterval(intervalId);
+  }, [editCoverImage, editProfileImage]);
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -40,7 +40,6 @@ const ProfilePage = () => {
         retriveData(user.uid);
       } else {
         <Loader />;
-        // setUserDataLoaded(false);
       }
     });
 
@@ -116,12 +115,13 @@ const ProfilePage = () => {
   }
 
   // handleEditCoverImage
-  function handleEditCoverImage(){
+  function handleEditCoverImage() {
     setEditCoverImage(true);
     setEditProfileImage(false);
   }
 
-  function handleEditProfileImage(){
+  // Handle Edit ProfileImage
+  function handleEditProfileImage() {
     setEditCoverImage(false);
     setEditProfileImage(true);
   }
@@ -136,20 +136,22 @@ const ProfilePage = () => {
 
       <div className="input-wrapper">
         <h1>Profile</h1>
-        <div className="banner-wrapper profile-cover" >
+        <div className="banner-wrapper profile-cover">
           <img src={user.profileCoverImage} alt="" />
           <div className="profileCoverEdit" onClick={handleEditCoverImage}>
-          {!editCoverImage && "Edit"}
-          {editCoverImage && <EditImage
-            imageName="profileCoverImage"
-            uid={uid}
-            setUpdate={setUpdate}
-            update={update}
-            loading={loading}
-            setLoading={setLoading}
-            setEditImage={setEditCoverImage}
-            editImage={editCoverImage}
-          />}
+            {!editCoverImage && "Edit"}
+            {editCoverImage && (
+              <EditImage
+                imageName="profileCoverImage"
+                uid={uid}
+                setUpdate={setUpdate}
+                update={update}
+                loading={loading}
+                setLoading={setLoading}
+                setEditImage={setEditCoverImage}
+                editImage={editCoverImage}
+              />
+            )}
           </div>
         </div>
         <div className="podcast-card profile">
@@ -159,17 +161,19 @@ const ProfilePage = () => {
             alt=""
           />
           <div className="profileEdit" onClick={handleEditProfileImage}>
-          {!editProfileImage && "Edit"}
-          {editProfileImage&&<EditImage
-            imageName="profileImage"
-            uid={uid}
-            setUpdate={setUpdate}
-            update={update}
-            loading={loading}
-            setLoading={setLoading}
-            editImage={editProfileImage}
-            setEditImage={setEditProfileImage}
-          />}
+            {!editProfileImage && "Edit"}
+            {editProfileImage && (
+              <EditImage
+                imageName="profileImage"
+                uid={uid}
+                setUpdate={setUpdate}
+                update={update}
+                loading={loading}
+                setLoading={setLoading}
+                editImage={editProfileImage}
+                setEditImage={setEditProfileImage}
+              />
+            )}
           </div>
         </div>
       </div>
