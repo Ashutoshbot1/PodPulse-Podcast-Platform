@@ -102,13 +102,11 @@ a{
 
 .profile img{
   border-radius: 40%;
-  /* z-index: 3; */
   transition: all .5s ease-in-out;
 }
 
 .profile img:hover{
-  /* z-index: 1; */
-  opacity: .8;
+  opacity: .9;
 }
 
 .profileEdit{
