@@ -65,6 +65,9 @@ const LoginForm = () => {
       if(!email){
         toast.error("Please Enter Email Id");
       }
+      else if(!email.includes("@")){
+        toast.error("Invalid Email Id")
+      }
       else{
         toast.error("Please Enter Password");
       }
