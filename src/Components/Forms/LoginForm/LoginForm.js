@@ -20,42 +20,54 @@ const LoginForm = () => {
 
   // Handle Login Function
   async function handleLogin() {
-    try {
-      setLoading(true);
 
-      // Authenticating
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
+    if(email && password){
 
-      // Getting User Details
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-      const userData = userDoc.data();
-      // console.log(userData);
-
-      // Storing data in Store
-      dispatch(
-        setUser({
-          name: userData.name,
-          email: user.email,
-          uid: user.uid,
-          profileImage: userData.profileImage,
-          profileCoverImage: userData.profileCoverImage,
-        })
-      );
-
-      //Redirecting to Profile Page
-      navigate("/profile");
-
-      toast.success("Login Successful");
-      setLoading(false);
-    } catch (err) {
-      console.log("Login Error", err);
-      toast.error(err.message);
-      setLoading(false);
+      try {
+        setLoading(true);
+  
+        // Authenticating
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        const user = userCredential.user;
+  
+        // Getting User Details
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        const userData = userDoc.data();
+        // console.log(userData);
+  
+        // Storing data in Store
+        dispatch(
+          setUser({
+            name: userData.name,
+            email: user.email,
+            uid: user.uid,
+            profileImage: userData.profileImage,
+            profileCoverImage: userData.profileCoverImage,
+          })
+        );
+  
+        //Redirecting to Profile Page
+        navigate("/profile");
+  
+        toast.success("Login Successful");
+        setLoading(false);
+      } catch (err) {
+        console.log("Login Error", err);
+        toast.error(err.message);
+        setLoading(false);
+      }
+    }
+    else{
+      if(!email){
+        toast.error("Please Enter Email Id");
+      }
+      else{
+        toast.error("Please Enter Password");
+      }
     }
   }
 

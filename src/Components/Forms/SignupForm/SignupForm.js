@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import FileInput from "../../Common/Inputs/Custom File Input/FileInput";
 import Loader from "../../Common/Loader/Loader";
-import './SignupForm.css'
+import "./SignupForm.css";
 
 const SignupForm = () => {
   const [fullName, setFullname] = useState("");
@@ -104,32 +104,48 @@ const SignupForm = () => {
         setLoading(false);
       }
     } else {
-      if (password !== confirmPassword) {
-        toast.error("Password Missmatched");
-      } else if(password.length<6) {
-        toast.error("Short Password");
-      }
-      else{
-        toast.error("All Feilds Required");
-      }
-
+      Validate();
       setLoading(false);
     }
   }
 
+  // Validate Function
+  function Validate() {
+    if (!fullName) {
+      toast.error("Please Enter Full-Name");
+    } else if (!email) {
+      toast.error("Please Enter Email id");
+    } else if (!email.includes("@")) {
+      toast.error("Please Enter Valid Email Id");
+    } else if (!password) {
+      toast.error("Please Enter Password");
+    } else if (!confirmPassword) {
+      toast.error("Please Enter Confirm Password");
+    } else if (password !== confirmPassword) {
+      toast.error("Password Missmatched");
+    } else if (password.length < 6) {
+      toast.error("Short Password");
+    }
+    else if(!profileImage){
+      toast.error("PLease Select Profile Image");
+    }
+    else if(!profileCoverImage){
+      toast.error("Please Select Cover Image");
+    }  
+  }
 
   //Handling Profile Image
-  function handleProfileImage(file){
+  function handleProfileImage(file) {
     setProfileImage(file);
   }
 
   // Handling Profile Cover Image
-  function handleProfileCoverImage(file){
+  function handleProfileCoverImage(file) {
     setProfileCoverImage(file);
   }
 
-  if(loading){
-    return <Loader/>
+  if (loading) {
+    return <Loader />;
   }
 
   return (

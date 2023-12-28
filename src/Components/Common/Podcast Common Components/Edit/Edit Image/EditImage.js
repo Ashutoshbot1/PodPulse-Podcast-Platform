@@ -27,32 +27,35 @@ const EditImage = ({
 
   useEffect(() => {
     let isMounted = true;
-    // console.log("run1");
     const fetchData = async () => {
       try {
         setLoading(true);
-        console.log("run2");
         if (imageName === "profileImage" || imageName === "profileCoverImage") {
-          //   console.log("run3", imageName);
           const userDoc = await getDoc(doc(db, "users", uid));
           const userData = userDoc.data();
 
-          //   console.log("previous user", userData); //clg
+          setLoading(true);
 
           const imageRef = ref(
             storage,
             `userProfileImages/${uid}/${Date.now()}`
           );
+          //Uploading Image to Firebase Storage
           await uploadBytes(imageRef, newImage);
+
+          // Geting Image Url
           const imageUrl = await getDownloadURL(imageRef);
 
+          // Creating New Users Data
           const newUserData = { ...userData, [imageName]: imageUrl };
 
-          //   console.log("new user data", newUserData); //clg
-
           if (isMounted) {
+            // Updating Users Data in Firebase DB
             await setDoc(doc(db, "users", uid), newUserData);
+            // Updating User Data in Redux Store
             dispatch(setUser(newUserData));
+            setEditImage(false);
+            // Triggering Profile Page
             setUpdate(!update);
           }
           setLoading(false);
@@ -64,6 +67,7 @@ const EditImage = ({
       }
     };
 
+    // Calling Fetch Data Only when file is present
     if (editImage && newImage) {
       fetchData();
     }
@@ -73,6 +77,7 @@ const EditImage = ({
     };
   }, [newImage]);
 
+  // Triggering Loader if user Data Not Found
   if (loading) {
     return <Loader />;
   }

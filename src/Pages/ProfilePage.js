@@ -24,19 +24,23 @@ const ProfilePage = () => {
   const [editCoverImage, setEditCoverImage] = useState(false);
   const [editProfileImage, setEditProfileImage] = useState(false);
 
-  useState(() => {
+  //Automatically disabling edit profile button
+  useEffect(() => {
     const intervalId = setInterval(() => {
       setEditCoverImage(false);
       setEditProfileImage(false);
-    }, 7000);
+    }, 20000);
 
     return () => clearInterval(intervalId);
   }, [editCoverImage, editProfileImage]);
 
+  // Triggers whenever profile page renders
   useEffect(() => {
+    // Triggers when new user logged in or page reloads
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUid(user.uid);
+        // Rendering new data on page
         retriveData(user.uid);
       } else {
         <Loader />;
@@ -44,6 +48,7 @@ const ProfilePage = () => {
     });
 
     const podcastsData = [];
+    // Listens to Document and triggers when ever it changes
     const unsubscribe = onSnapshot(
       query(collection(db, "podcasts")),
       (querySnapShot) => {
@@ -56,12 +61,6 @@ const ProfilePage = () => {
           (podcasts) => podcasts.createdBy === uid
         );
         setUserPodcasts(filteredPodcasts);
-
-        console.log("current uid", user);
-        console.log("podcastsData", podcastsData);
-        console.log("userPodcasts", filteredPodcasts);
-        setEditCoverImage(false);
-        setEditProfileImage(false);
       },
       (err) => {
         console.error("Error Profile", err);
@@ -77,11 +76,9 @@ const ProfilePage = () => {
   async function retriveData(uid) {
     const userDoc = await getDoc(doc(db, "users", uid));
     const userData = userDoc.data();
-    console.log(userData);
 
     try {
       // Storing data in Store
-
       dispatch(
         setUser({
           name: userData.name,
@@ -114,7 +111,7 @@ const ProfilePage = () => {
     navigate("/start-podcast");
   }
 
-  // handleEditCoverImage
+  // Handle Edit CoverImage
   function handleEditCoverImage() {
     setEditCoverImage(true);
     setEditProfileImage(false);
@@ -126,6 +123,7 @@ const ProfilePage = () => {
     setEditProfileImage(true);
   }
 
+  // Triggering Loader if user Data Not Found
   if (!userDataLoaded) {
     return <Loader></Loader>;
   }

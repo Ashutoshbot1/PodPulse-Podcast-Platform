@@ -33,7 +33,6 @@ const PodcastDetailsPage = () => {
       if (docSnap.exists()) {
         console.log("Document data:", docSnap.data());
         setPodcast({ id, ...docSnap.data() });
-        // toast.success("Podcast Found!");
       } else {
         toast.error("No such Document!");
         navigate("/podcasts");
@@ -64,8 +63,6 @@ const PodcastDetailsPage = () => {
       unsubcribe();
     };
   }, [id]);
-
-  console.log(podcast.createdBy === auth.currentUser.uid);
 
   if (loading) {
     <Loader />;

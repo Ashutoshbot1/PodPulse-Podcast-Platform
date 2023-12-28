@@ -61,8 +61,22 @@ const CreateEpisodePage = () => {
         console.log("CreatePodCast error", err);
       }
     } else {
+      validate()
       setLoading(false);
-      toast.error("All Files Should Be There");
+    }
+  }
+
+  // Validate Function
+
+  function validate(){
+    if(!title){
+      toast.error("Title is Required")
+    }
+    else if(!desc){
+      toast.error("Please Write Description");
+    }
+    else if(!audioFile){
+      toast.error("Please Select an Audio File");
     }
   }
 

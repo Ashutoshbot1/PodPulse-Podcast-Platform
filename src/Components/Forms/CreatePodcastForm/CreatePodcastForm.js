@@ -67,8 +67,8 @@ const CreatePodcastForm = () => {
         setDisplayImage(null);
 
         toast.success("Podcast Created");
-        navigate('/profile');
-        toast.success('Find Your Podcast Here');
+        navigate("/profile");
+        toast.success("Find Your Podcast Here");
         setLoading(false);
       } catch (err) {
         console.log("CreatePodcast-error", err);
@@ -76,8 +76,21 @@ const CreatePodcastForm = () => {
         setLoading(false);
       }
     } else {
-      toast.error("File is Missing");
+      validate();
       setLoading(false);
+    }
+  }
+
+  // Validate Function
+  function validate() {
+    if (!title) {
+      toast.error("Title is Required");
+    } else if (!desc) {
+      toast.error("Please Write Description");
+    } else if (!displayImage) {
+      toast.error("Please Select Display Image");
+    } else if (!bannerImage) {
+      toast.error("Please Select Banner Image");
     }
   }
 
@@ -91,8 +104,8 @@ const CreatePodcastForm = () => {
     setBannerImage(file);
   }
 
-  if(loading){
-    return(<Loader/>);
+  if (loading) {
+    return <Loader />;
   }
 
   return (
